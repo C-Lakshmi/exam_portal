@@ -1,0 +1,103 @@
+body{
+  text-align: center; 
+  margin-bottom: 20px;
+}
+.admin_content{
+  text-align: center;
+  font-size: 20px;
+  font-style: italic;
+}
+.add_btn{
+  background-color: #04478e;
+  color: white;
+  border: none;
+  width: 300px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: #337dcc;
+}
+.form-container {
+  width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #e3f2fd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.2);
+}
+
+.adminDashboard h2 {
+  text-align: center;
+  color: #0d47a1;
+}
+
+.adminDashboard form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.adminDashboard label {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #1565c0;
+}
+
+.adminDashboard input {
+  padding: 8px;
+  border: 1px solid #90caf9;
+  border-radius: 5px;
+}
+
+.form_Add {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form_Add:hover {
+  background-color: #1565c0;
+}
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+.dashboard-table th {
+  background-color: darkcyan;
+  color: white;
+}
+
+.dashboard-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.dashboard-table tr:hover {
+  background-color: #ddd;
+}
+.decide{
+  background-color: #004bc5;
+  color: white;
+  cursor: pointer;
+}
+.decide:hover{
+  background-color: #04ab84;
+  color: white;
+}

@@ -1,0 +1,204 @@
+/* ExamPortal.css */
+.exam-portal {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    
+  }
+  
+  h1 {
+    text-align: center;
+    color: darkblue;
+  }
+  
+  .exam-list {
+    margin-bottom: 20px;
+  }
+  
+  .exam-card {
+    display: inline-block;
+    width: 800px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    
+  }
+  .time_panel{
+    width: 170px;
+  }
+  
+  .exam-card h2 {
+    margin: 0 0 10px;
+    background-color: #f9f9f9;
+    color: rgb(7, 7, 116);
+  }
+  
+  .exam-card p {
+    margin: 0 0 10px;
+    color: #777;
+  }
+  
+  .exam_btns{
+    display: flex;
+    justify-content: space-between;
+  }
+  .start_exam {
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    margin-left: 2px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .start_exam:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .start_exam:hover{
+    background-color: green;
+    cursor: pointer;
+  }
+  .view_result{
+    padding: "10px 15px";
+    border: none;
+    background-color: "#1976d2";
+    color: "white";
+    border-radius: "5px";
+    cursor: "pointer";
+    font-size: 14px;
+  }
+  
+  .instructions {
+    margin-top: 30px;
+    margin-left: 200px;
+  }
+  
+  .instructions h2 {
+    margin-right: 220px;
+    margin-bottom: 10px;
+    color: darkblue;
+  }
+  
+  .instructions ul {
+    text-align: left;
+    list-style-type: disc;
+    margin-top: 20px;
+  }
+  .instructions li{
+    margin-right: 220px;
+  }
+  .exam-title {
+    color: #ffffff; /* White for contrast */
+    text-align: center;
+    font-size: 3vw; /* Large and bold for prominence */
+    font-weight: 900;
+    padding: 2.5vw 1vw; /* Added padding for spacing */
+    background: linear-gradient(90deg, #1a237e, #64b5f6); /* Gradient background for a modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    margin-bottom: 30px; /* Added spacing below */
+    letter-spacing: 1px; /* Slight letter spacing for elegance */
+    text-transform: uppercase; /* Make it all caps for emphasis */
+  }
+  
+  .exam-title span {
+    display: block;
+    font-size: 1.5vw; /* Slightly smaller for subtitle */
+    font-weight: 400;
+    margin-top: 10px; /* Spacing between title and subtitle */
+    color: #bbdefb; /* Soft complementary color */
+    text-transform: none; /* Subtitle is not uppercase */
+  }
+  
+  .exam-timer {
+    padding: 1vw 2vw; /* Increased padding for better visual balance */
+    margin-top: 1.8vw;
+    border-radius: 12px;
+    color: #1a237e; /* Complementary color */
+    background-color: #e3f2fd; /* Light blue */
+    font-size: 1.2vw; /* Slightly larger font */
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .exam-timer:hover {
+    color: #e3d6d6;
+    background-color: #1a237e; /* Rich cyan for hover */
+    cursor: pointer;
+  }
+  
+  .exam-timer:active {
+    transform: scale(0.95); /* Slight shrink effect on click */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Reduced shadow on active */
+  }
+  
+  
+  .question-container {
+    text-align: left;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5; /* Subtle light gray for contrast */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Smooth shadow for depth */
+    height: auto; /* Flexible height for different question lengths */
+  }
+  
+  .options {
+    text-align: left;
+    margin: 20px 0;
+  }
+  
+  .option {
+    margin-bottom: 15px;
+    font-size: 1.2vw; /* Slightly larger for better readability */
+    color: #424242; /* Neutral color */
+    padding: 10px;
+    background-color: #ffffff; /* White for clean separation */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .option:hover {
+    background-color: #bbdefb; /* Light blue for hover effect */
+    border-color: #64b5f6;
+    cursor: pointer;
+  }
+  
+  .ques-btns{
+    display: flex;
+    justify-content: left;
+  }
+  .next-button,
+  .prev-button {
+    padding: 12px 20px; /* Larger padding for better usability */
+    background-color: #64b5f6; /* Brighter blue for buttons */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin: 0 10px; /* Slight spacing between buttons */
+    font-size: 1.2vw;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .next-button:hover,
+  .prev-button:hover {
+    background-color: #1e88e5; /* Slightly darker blue for hover */
+  }
+  
+  .next-button:active,
+  .prev-button:active {
+    transform: scale(0.95); /* Subtle click effect */
+  }
+  
+  
+  

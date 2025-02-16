@@ -1,0 +1,141 @@
+
+  /* Results Page */
+  .results-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .results-title {
+    font-size: 2rem;
+    color: #1a237e; /* Dark blue for the title */
+    margin-bottom: 20px;
+  }
+  
+  /* Card for each result */
+  .result-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 20px;
+    margin: 10px 0;
+    background-color: #ffffff; /* White for contrast */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid #bbdefb; /* Light blue border */
+  }
+  
+  .result-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
+    background-color: #bbdefb; /* Light blue hover effect */
+  }
+  
+  .result-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1a237e; /* Dark blue for text */
+  }
+  
+  .result-score {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #004d40; /* Teal for score display */
+  }
+  
+  .no-results {
+    color: #555;
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
+  .analysis-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+}
+
+.analysis-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #0d47a1;
+    margin-bottom: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.analysis-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #e3f2fd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.analysis-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.analysis-card h3 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.legend {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.legend p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.analysis-strengths ul,
+.analysis-weaknesses ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+    color: #333;
+    font-size: 1rem;
+}
+
+.analysis-strengths strong {
+    color: #388e3c;
+    font-size: 1.1rem;
+}
+
+.analysis-weaknesses strong {
+    color: #d32f2f;
+    font-size: 1.1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .analysis-container {
+        padding: 15px;
+    }
+
+    .analysis-title {
+        font-size: 1.8rem;
+    }
+
+    .analysis-card {
+        padding: 15px;
+    }
+
+    .analysis-card h3 {
+        font-size: 1.5rem;
+    }
+}
