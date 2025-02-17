@@ -218,10 +218,14 @@ const Portal = () => {
   };
   
  return (
+    <div className="bg-[#FFFCFC]">
+      
     <div className="exam-portal">
         
         {!isExamStarted ? (
-        <>  <Navbar/>
+        <> <Navbar/> 
+          <div className="relative bg-fixed min-h-screen bg-cover bg-no-repeat" style={{backgroundImage: "url('/register.jpg')" }}>
+          <div className="right-side-panel">
           <h1>Upcoming Exams</h1>
           <div className="exam-list">
             {exams.map((exam,index) => (
@@ -258,6 +262,8 @@ const Portal = () => {
               <li>Best of luck!</li>
             </ul>
           </div>
+      </div>
+    </div>
         </>
       ) : (
         <div className="exam-container">
@@ -346,6 +352,7 @@ const Portal = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

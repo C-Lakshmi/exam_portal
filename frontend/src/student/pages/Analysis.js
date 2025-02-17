@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./Results.css";
 import axios from "axios";
 import {
   PieChart,
@@ -19,9 +18,7 @@ import {
 const Analysis = () => {
   const location = useLocation();
   const { examId } = location.state || {};
-  console.log(examId)
 
-  // State for fetched data
   const [analysis, setAnalysis] = useState({
     strengths: [],
     weaknesses: [],
@@ -30,129 +27,97 @@ const Analysis = () => {
     timeSpent: [],
   });
 
-  // Colors for Pie Charts
-  const COLORS = ["#4caf50", "#f44336"]; // Green for correct, red for incorrect
-  const DIFFICULTY_COLORS = ["#81c784", "#ffb74d", "#e57373"]; // Easy, Medium, Hard
+  const COLORS = ["#4caf50", "#f44336"];
+  const DIFFICULTY_COLORS = ["#81c784", "#ffb74d", "#e57373"];
 
- 
   const fetchAnalysis = async () => {
     try {
-      const response = await axios.post("/api/student/analysis", {examId} );
-      const data = response.data;
-      console.log("Analysis fetched:", data);
-      // Convert time strings to seconds
-    
+      const response = await axios.post("/api/student/analysis", { examId });
       setAnalysis({
-        strengths: data.strengths || [],
-        weaknesses: data.weaknesses || [],
-        questionAccuracy: data.accuracyData || [],
-        difficultyDistribution: data.difficultyData || [],
-        timeSpent: data.timeSpentData,
+        strengths: response.data.strengths || [],
+        weaknesses: response.data.weaknesses || [],
+        questionAccuracy: response.data.accuracyData || [],
+        difficultyDistribution: response.data.difficultyData || [],
+        timeSpent: response.data.timeSpentData || [],
       });
     } catch (error) {
       console.error("Error fetching analysis data:", error);
     }
   };
+
   useEffect(() => {
-    if (examId) {
-      fetchAnalysis();
-      console.log(analysis.timeSpent)
-      //console.log(analysis)
-    }
+    if (examId) fetchAnalysis();
   }, [examId]);
-  
- // console.log(analysis)
+
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <Navbar />
-      <div className="analysis-container">
-        <h2 className="analysis-title">Exam Analysis</h2>
-
-        {/* Strengths and Weaknesses */}
-        <div className="analysis-card">
-          <h3>Strengths and Weaknesses</h3>
-          <div className="analysis-strengths">
-            <strong>Strengths:</strong>
-            <ul>
-              {analysis.strengths.map((strength, index) => (
-                <li key={index}>{strength}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="analysis-weaknesses">
-            <strong>Weaknesses:</strong>
-            <ul>
-              {analysis.weaknesses.map((weakness, index) => (
-                <li key={index}>{weakness}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Question Accuracy - Pie Chart */}
-        <div className="analysis-card">
-          <h3>Question Accuracy</h3>
-          <PieChart width={300} height={300}>
-            <Pie
-              data={analysis.questionAccuracy}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-              label
-            >
-              {analysis.questionAccuracy.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-          <div className="legend">
-            <p>
-              <span style={{ color: "#4caf50", fontWeight: "bold" }}>●</span> Correct
-            </p>
-            <p>
-              <span style={{ color: "#f44336", fontWeight: "bold" }}>●</span> Incorrect
-            </p>
+      <div className="max-w-4xl mx-auto py-10">
+        <h2 className="text-3xl font-semibold text-center text-blue-800 mb-6">Exam Analysis</h2>
+        <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+          <h3 className="text-xl font-semibold mb-2">Strengths and Weaknesses</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <strong className="text-green-600">Strengths:</strong>
+              <ul className="list-disc list-inside text-gray-700">
+                {analysis.strengths.map((strength, index) => (
+                  <li key={index}>{strength}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <strong className="text-red-600">Weaknesses:</strong>
+              <ul className="list-disc list-inside text-gray-700">
+                {analysis.weaknesses.map((weakness, index) => (
+                  <li key={index}>{weakness}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-
-        {/* Difficulty Distribution - Pie Chart */}
-        <div className="analysis-card">
-          <h3>Difficulty Distribution</h3>
-          <PieChart width={300} height={300}>
-            <Pie
-              data={analysis.difficultyDistribution}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-              label
-            >
-              {analysis.difficultyDistribution.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={DIFFICULTY_COLORS[index % DIFFICULTY_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-          <div className="legend">
-            <p>
-              <span style={{ color: "#81c784", fontWeight: "bold" }}>●</span> Easy
-            </p>
-            <p>
-              <span style={{ color: "#ffb74d", fontWeight: "bold" }}>●</span> Medium
-            </p>
-            <p>
-              <span style={{ color: "#e57373", fontWeight: "bold" }}>●</span> Hard
-            </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+            <h3 className="text-xl font-semibold mb-2">Question Accuracy</h3>
+            <PieChart width={300} height={300}>
+              <Pie
+                data={analysis.questionAccuracy}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                dataKey="value"
+                label
+              >
+                {analysis.questionAccuracy.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </div>
+          
+          <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+            <h3 className="text-xl font-semibold mb-2">Difficulty Distribution</h3>
+            <PieChart width={300} height={300}>
+              <Pie
+                data={analysis.difficultyDistribution}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                dataKey="value"
+                label
+              >
+                {analysis.difficultyDistribution.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={DIFFICULTY_COLORS[index % DIFFICULTY_COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
           </div>
         </div>
-
-        {/* Time Spent on Each Question - Bar Chart */}
-        <div className="analysis-card">
-          <h3>Time Spent on Each Question</h3>
+        
+        <div className="bg-white shadow-md rounded-lg p-6 mt-6">
+          <h3 className="text-xl font-semibold mb-2 text-center">Time Spent on Each Question</h3>
           <BarChart
             width={500}
             height={300}

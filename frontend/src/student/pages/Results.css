@@ -1,55 +1,6 @@
 
   /* Results Page */
-  .results-container {
-    text-align: center;
-    padding: 20px;
-  }
   
-  .results-title {
-    font-size: 2rem;
-    color: #1a237e; /* Dark blue for the title */
-    margin-bottom: 20px;
-  }
-  
-  /* Card for each result */
-  .result-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    padding: 0 20px;
-    margin: 10px 0;
-    background-color: #ffffff; /* White for contrast */
-    border-radius: 12px; /* Slightly more rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 2px solid #bbdefb; /* Light blue border */
-  }
-  
-  .result-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
-    background-color: #bbdefb; /* Light blue hover effect */
-  }
-  
-  .result-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #1a237e; /* Dark blue for text */
-  }
-  
-  .result-score {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #004d40; /* Teal for score display */
-  }
-  
-  .no-results {
-    color: #555;
-    font-size: 1.2rem;
-    margin-top: 20px;
-  }
   
   .analysis-container {
     width: 90%;

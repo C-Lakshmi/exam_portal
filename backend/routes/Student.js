@@ -423,7 +423,7 @@ router.post("/submit", async (req, res) => {
 
 router.post("/results", async (req, res) => {
   const stud_id = req.session.stud_id;
-  //console.log(stud_id)
+  console.log(stud_id);
   const query = `
     SELECT exam_id, score, total_qs, 
            (SELECT exam_name FROM exams WHERE exams.exam_id = dashboard.exam_id) AS exam_name
@@ -442,7 +442,7 @@ router.post("/results", async (req, res) => {
         }
       });
     });
-
+    console.log(results);
     res.json(results);
   } catch (error) {
     console.error("Error fetching results:", error);
