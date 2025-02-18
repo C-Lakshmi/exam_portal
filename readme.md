@@ -1,13 +1,31 @@
-
-# Exam Portal
+<h1>Exam Portal</h1>
 
 The Exam Portal is a fully-functional web-based examination system designed to streamline the process of conducting online exams, tracking student performance, and providing detailed analytics for both students and administrators. The platform supports student registrations, secure exam-taking, adaptive questioning, and comprehensive post-exam analysis.
 
+## Features  
+
+- **Student Registration:** Secure signup and authentication.  
+- **Exam Registration:** Admins manage slots; students register.  
+- **Booking & Fees:** Online fee payment (no gateway yet).  
+- **Date Rescheduling:** Students request; admin's decision is final.  
+- **Secure Exam Start:** Photo/ID verification (in progress).  
+- **Quit & Disconnection Handling:** Resume exams after disconnection; next-day continuation (in progress).  
+- **Adaptive Questioning:** Dynamic difficulty based on performance (in progress).  
+- **Post-Exam Evaluation:** Instant answer evaluation and detailed reports.  
+- **Strengths & Weakness Dashboard:** Individual and overall performance insights.  
+- **Percentile Calculation:** Ranking based on overall performance.  
+- **Time Tracking:** Tracks time per question for analysis.  
+- **Post-Exam Question Review:** Evaluates question effectiveness and difficulty.  
+- **Dashboard Updates:** Adjusts question difficulty based on trends (in progress).
 
 
+## Tech Stacks
 
+**Client:** ReactJS, TailwindCSS, Basic CSS
 
+**Server:** NodeJS, Express
 
+**Database:** MySQL
 
 
 ## Installation
@@ -17,14 +35,6 @@ The Exam Portal is a fully-functional web-based examination system designed to s
 - Install [Node.js](https://nodejs.org/)
 
 
-    
-## Tech Stacks
-
-**Client:** React, TailwindCSS, Basic CSS
-
-**Server:** Node, Express
-
-**Database:** MySQL
 ## Steps to Run Locally
 
 **Clone the project**
@@ -52,21 +62,19 @@ The Exam Portal is a fully-functional web-based examination system designed to s
   npm install
 ```
 ### Setup the MySQL Database
-- **Start MySQL Server**
-If using XAMPP, open the XAMPP Control Panel and start Apache & MySQL.
-If using MySQL Server, ensure it’s running.
-- **Create the Database**
-Open (http://localhost/phpmyadmin/) or use the MySQL CLI.
-Create a new database:
+- **Start MySQL Server** <br>
+If you are using XAMPP, open the XAMPP Control Panel and start Apache & MySQL. <br>
+If you are using MySQL Server, ensure it’s running.
+- **Create the Database**  <br>
+Open (http://localhost/phpmyadmin/) if using XAMPP
 ```sql
 CREATE DATABASE exam_system;
 ```
 - **Import the Database Schema**
-    - If using phpMyAdmin:
-    - Select the exam_system database.
-    - Click on the Import tab.
-    - Choose the db_setup.sql file.
-    - Click Go to execute the SQL script.
+1)  Select the exam_system database.
+2)  Click on the Import tab.
+3)  Choose the db_setup.sql file.
+4)  Click Go to execute the SQL script.
 
 - **If using MySQL CLI, run:**
 ```sh
@@ -84,7 +92,6 @@ mysql -u root -p exam_db < path/to/db_setup.sql
   cd frontend
   npm start
 ```
-
 
 ## Project Architecture
 
@@ -155,18 +162,3 @@ mysql -u root -p exam_db < path/to/db_setup.sql
                     Results.css
                     Results.js
 ``` 
-## Features  
-
-- **Student Registration:** Secure signup and authentication.  
-- **Exam Registration:** Admins manage slots; students register.  
-- **Booking & Fees:** Online fee payment (no gateway yet).  
-- **Date Rescheduling:** Students request; admin's decision is final.  
-- **Secure Exam Start:** Photo/ID verification (in progress).  
-- **Quit & Disconnection Handling:** Resume exams after disconnection; next-day continuation (in progress).  
-- **Adaptive Questioning:** Dynamic difficulty based on performance (in progress).  
-- **Post-Exam Evaluation:** Instant answer evaluation and detailed reports.  
-- **Strengths & Weakness Dashboard:** Individual and overall performance insights.  
-- **Percentile Calculation:** Ranking based on overall performance.  
-- **Time Tracking:** Tracks time per question for analysis.  
-- **Post-Exam Question Review:** Evaluates question effectiveness and difficulty.  
-- **Dashboard Updates:** Adjusts question difficulty based on trends (in progress).  
