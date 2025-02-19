@@ -16,7 +16,7 @@ const Reschedule = () => {
 
   const sendData = async () => {
     try {
-      const done = await axios.post("/student/reschedule", formData);
+      const done = await axios.post("/api/student/reschedule", formData);
       console.log(done.data);
     } catch (err) {
       console.log(err);

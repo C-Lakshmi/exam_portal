@@ -10,6 +10,7 @@ import Portal from "./student/Portal"
 import Analysis from "./student/pages/Analysis"
 import Add from "./admin/Add"
 import Request from "./admin/Request"
+import AdminAnalysis from "./admin/AdminAnalysis";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         {/* Default redirect */}
         <Route path="/" element={<Register />} />
         <Route path="/auth/register" element={<Register />} />
+        <Route path="/logout" element={<Register />} />
         <Route path="/student/login" element={<Login />} />
         {/* Admin Routes */}
         <Route
@@ -31,6 +33,10 @@ const App = () => {
         <Route
           path="/admin/request"
           element={<Request />}
+        />
+        <Route
+          path="/admin/analysis"
+          element={<AdminAnalysis />}
         />
 
         {/* Student Routes */}

@@ -199,13 +199,12 @@ router.get("/exams", async (req, res) => {
   });
   
 router.post("/reschedule", async (req, res) => {
+  console.log(req.body)
   const { exam_id, new_slot } = req.body;
   const stud_id = req.session.stud_id; // Assuming the student ID is stored in the session
-  const request_status = "Pending";
-
   const query = `
-    INSERT INTO reschedule_requests (stud_id, exam_id, new_slot, request_status) 
-    VALUES (?, ?, ?, ?)
+    INSERT INTO reschedule_requests (stud_id, exam_id, new_slot) 
+    VALUES (?, ?, ?)
   `;
 
   try {
@@ -213,7 +212,7 @@ router.post("/reschedule", async (req, res) => {
     const result = await new Promise((resolve, reject) => {
       db.query(
         query,
-        [exam_id, stud_id, new_date, new_start_time, new_end_time, request_status],
+        [stud_id, exam_id, new_slot],
         (err, results) => {
           if (err) {
             console.error("Database error:", err);
@@ -477,14 +476,44 @@ COUNT(CASE WHEN given_ans = solved.ans THEN 1 END) AS correct_count,
 COUNT(*) AS total_count
 FROM solved
 INNER JOIN questions ON solved.ques_id = questions.ques_id
-WHERE solved.stud_id = ? AND solved.exam_id= ?
+WHERE solved.exam_id= ? AND solved.stud_id = ?
 GROUP BY topic
 ORDER BY COUNT(CASE WHEN given_ans = solved.ans THEN 1 END) / COUNT(*) DESC;
   `;
+const rankQ = `SELECT rank
+FROM (
+    SELECT  
+        stud_id,
+        RANK() OVER (ORDER BY score DESC) AS rank
+    FROM dashboard
+    WHERE exam_id = ?
+) ranked
+WHERE stud_id = ?;
+;`
+
+const percentileQ = `WITH ScoreData AS (
+    SELECT stud_id, score
+    FROM dashboard
+    WHERE exam_id = ?
+),
+StudentScore AS (
+    SELECT score FROM dashboard WHERE stud_id = ? AND exam_id = ?
+),
+TotalStudents AS (
+    SELECT COUNT(*) AS total FROM ScoreData
+),
+LowerScores AS (
+    SELECT COUNT(*) AS lower FROM ScoreData WHERE score <= (SELECT score FROM StudentScore)
+)
+
+SELECT 
+    (SELECT lower FROM LowerScores) * 100.0 / (SELECT total FROM TotalStudents) AS percentile;
+`
+
 console.log(stud_id,exam_id)
   try {
     // Parallel execution of queries
-    const [dashboardResults, timeSpentResults, difficultyResults, topicPerformanceResults] =
+    const [dashboardResults, timeSpentResults, difficultyResults, topicPerformanceResults, rank, percentile] =
       await Promise.all([
         new Promise((resolve, reject) =>
           db.query(dashboardQuery, [stud_id, exam_id], (err, results) =>
@@ -502,12 +531,21 @@ console.log(stud_id,exam_id)
           )
         ),
         new Promise((resolve, reject) =>
-          db.query(topicPerformanceQuery, [stud_id,exam_id], (err, results) =>
+          db.query(topicPerformanceQuery, [exam_id, stud_id], (err, results) =>
             err ? reject(err) : resolve(results)
           )
         ),
+        new Promise((resolve, reject) =>
+          db.query(rankQ, [exam_id,stud_id], (err, results) =>
+            err ? reject(err) : resolve(results)
+          )
+        ),new Promise((resolve, reject) =>
+          db.query(percentileQ, [exam_id, stud_id, exam_id, stud_id, exam_id], (err, results) =>
+            err ? reject(err) : resolve(results)
+          )
+        )
       ]);
-    console.log(dashboardResults)
+    //console.log(dashboardResults)
     // Process results
     const { score, total_qs } = dashboardResults[0];
     const accuracyData = [
@@ -524,21 +562,23 @@ console.log(stud_id,exam_id)
       name: difficulty,
       value: count,
     }));
-
+    //console.log(topicPerformanceResults);
     const strengths = topicPerformanceResults
       .slice(0, 2)
       .map(({ topic }) => topic);
     const weaknesses = topicPerformanceResults
       .slice(-2)
       .map(({ topic }) => topic);
-      console.log(strengths,weaknesses);
+      //console.log(strengths,weaknesses);
       timeSpentData = timeSpentData.map((entry) => {
         const [hours, minutes, seconds] = entry.time.split(":").map(Number);
         const totalSeconds = hours * 3600 + minutes * 60 + seconds;
         return { ...entry, time: totalSeconds };
       });
-      
-      console.log(topicPerformanceResults);
+      console.log(rank);
+      let Rank=rank[0].rank
+      let Percentile= percentile[0].percentile
+      //console.log(Rank, Percentile);
     // Send response
     res.json({
       accuracyData,
@@ -546,11 +586,57 @@ console.log(stud_id,exam_id)
       difficultyData,
       strengths,
       weaknesses,
+      Rank,
+      Percentile,
     });
   } catch (error) {
     console.error("Error fetching analysis:", error);
     res.status(500).json({ error: "Failed to fetch analysis" });
   }
+});
+
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Failed to log out");
+    }
+    res.clearCookie("connect.sid"); // Clear the session cookie
+    res.status(200).send("Logged out successfully");
+  });
+});
+
+router.post("/examQuestions", async (req, res) => {
+    const { exam_id } = req.body;
+    const stud_id = req.session.stud_id; // Assuming session holds the student ID
+    //console.log(exam_id);
+    if (!exam_id || !stud_id) {
+        return res.status(400).json({ error: "Missing exam_id or student session." });
+    }
+
+    const query = `
+        SELECT q.ques_id, q.ques, q.opt1, q.opt2, q.opt3, q.opt4, q.ans AS correct_ans, 
+               s.given_ans 
+        FROM questions q
+        LEFT JOIN solved s ON q.ques_id = s.ques_id AND s.stud_id = ? AND s.exam_id = ? AND s.exam_id=q.exam_id
+        WHERE q.exam_id = ?;
+    `;
+
+    try {
+      const results = await new Promise((resolve, reject) => {
+        db.query(query, [stud_id,exam_id,exam_id], (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+      //console.log(results);
+      res.json(results);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      res.status(500).json({ error: "Failed to fetch results" });
+    }
 });
 
 

@@ -73,7 +73,7 @@ h1 {
 
 /* Exam Title */
 .exam-title {
-  @apply text-white text-center text-3xl font-extrabold p-5 bg-gradient-to-r from-indigo-900 to-blue-400 shadow-lg uppercase tracking-wide;
+  @apply text-white text-center pt-[55px] h-[150px] text-3xl font-extrabold p-5 bg-gradient-to-r from-indigo-900 to-blue-400 shadow-lg uppercase tracking-wide;
 }
 
 .exam-title span {
@@ -82,12 +82,12 @@ h1 {
 
 /* Exam Timer */
 .exam-timer {
-  @apply px-5 py-3 rounded-lg text-blue-900 bg-blue-100 font-bold text-lg shadow-md transition hover:bg-blue-900 hover:text-white cursor-pointer;
+  @apply px-5 py-3 m-1 rounded-lg text-blue-900 bg-blue-100 font-bold text-lg shadow-md transition hover:bg-blue-900 hover:text-white cursor-pointer;
 }
 
 /* Question Container */
 .question-container {
-  @apply bg-gray-50 p-6 rounded-lg shadow-md space-y-4;
+  @apply bg-gray-50 p-6 ml-4 rounded-lg shadow-md space-y-4 mt-32 text-left;
 }
 
 .options {
@@ -100,12 +100,15 @@ h1 {
 
 /* Navigation Buttons */
 .ques-btns {
-  @apply flex justify-start space-x-4 mt-4;
+  @apply flex justify-start space-x-4 mt-12 ml-4;
 }
 
-.next-button,
+
 .prev-button {
   @apply px-5 py-3 bg-blue-500 text-white font-bold rounded-md transition hover:bg-blue-700;
+}
+.next-button{
+  @apply px-5 py-3 ml-8 bg-blue-500 text-white font-bold rounded-md transition hover:bg-blue-700;
 }
 
 .next-button:active,

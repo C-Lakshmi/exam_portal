@@ -7,6 +7,7 @@ const Portal = () => {
   const [exams, setExams] = useState([]);
   const [currentExam, setCurrentExam] = useState(null);
   const [isExamStarted, setIsExamStarted] = useState(false);
+  const [hasTakenTest,setHasTakenTest] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeToStart, setTimeToStart] = useState();
   const [time, setTime] = useState([]);
@@ -74,6 +75,7 @@ const Portal = () => {
           if(response.data=="Test taken!"){
             alert("You have already taken the test!")
             setIsExamStarted(false);
+            setHasTakenTest(true);
           
           } // Record the start time for the first question
           else{
@@ -118,7 +120,7 @@ const Portal = () => {
   }, [timer, isExamStarted]);
   
   useEffect(() => {
-    if (!isExamStarted) {
+    if (!isExamStarted && !hasTakenTest) {
       const sendExamData = async () => {
         try {
           const payload = {
@@ -129,7 +131,6 @@ const Portal = () => {
           };
           const response = await axios.post("/api/student/submit", payload);
           console.log("Exam data submitted successfully:", response.data);
-          alert("Your exam data has been submitted successfully!");
         } catch (error) {
           console.error("Error submitting exam data:", error);
           alert("Failed to submit your exam data. Please try again.");
@@ -224,7 +225,7 @@ const Portal = () => {
         
         {!isExamStarted ? (
         <> <Navbar/> 
-          <div className="relative bg-fixed min-h-screen bg-cover bg-no-repeat" style={{backgroundImage: "url('/register.jpg')" }}>
+          <div className="relative min-h-screen bg-no-repeat pl-8" style={{backgroundImage: "url('/exam1.jpg')"}}>
           <div className="right-side-panel">
           <h1>Upcoming Exams</h1>
           <div className="exam-list">

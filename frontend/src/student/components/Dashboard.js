@@ -63,23 +63,23 @@ const Dashboard = () => {
           <tbody>
             {exams.map((exam) => (
               <tr key={exam.exam_id} className="border-b hover:bg-gray-100">
-                <td className="py-3">{exam.exam_id}</td>
-                <td className="py-3">{exam.exam_name}</td>
-                <td className=" py-3">{exam.dept}</td>
-                <td className="py-3">{new Date(exam.slot).toLocaleString()}</td>
-                <td className="py-3">{exam.fees}</td>
-                <td className=" py-3">{exam.duration} mins</td>
-                <td className=" py-3">
+                <td className="py-3 text-center">{exam.exam_id}</td>
+                <td className="py-3 text-center">{exam.exam_name}</td>
+                <td className=" py-3 text-center">{exam.dept}</td>
+                <td className="py-3 text-center">{new Date(exam.slot).toLocaleString()}</td>
+                <td className="py-3 text-center">{exam.fees}</td>
+                <td className=" py-3 text-center">{exam.duration} mins</td>
+                <td className=" py-3 text-center">
                   <button
-                    className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+                    className="bg-green-500 text-white text-center px-4 py-2 rounded-md hover:bg-green-600 transition"
                     onClick={(e) => handleBook(exam.exam_id, exam.fees, e)}
                   >
                     Book
                   </button>
                 </td>
-                <td className="px-6 py-3">
+                <td className="text-center py-3">
                   <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                    className="bg-blue-500 text-white px-4 py-2 text-center rounded-md hover:bg-blue-600 transition"
                     onClick={() => handleRequest(exam.exam_id)}
                   >
                     Reschedule
