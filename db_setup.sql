@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 06:20 PM
+-- Generation Time: Mar 05, 2025 at 10:40 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,13 +40,15 @@ CREATE TABLE `dashboard` (
 --
 
 INSERT INTO `dashboard` (`result_id`, `stud_id`, `exam_id`, `score`, `total_qs`) VALUES
-(1, 29, 11, 2, 7),
 (2, 29, 11, 3, 7),
-(3, 29, 11, 7, 7),
 (4, 22, 7, 6, 7),
 (5, 22, 8, 5, 7),
 (6, 22, 1, 0, 4),
-(7, 27, 7, 5, 7);
+(7, 27, 7, 5, 7),
+(8, 24, 7, 3, 7),
+(9, 25, 7, 2, 7),
+(10, 28, 7, 4, 7),
+(11, 29, 7, 4, 7);
 
 -- --------------------------------------------------------
 
@@ -68,19 +70,20 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`exam_id`, `exam_name`, `dept`, `slot`, `fees`, `duration`) VALUES
-(1, 'Math Midterm', 'Mathematics', '2025-02-14 18:28:59', 500, 90),
-(2, 'Physics Final', 'Physics', '2025-02-12 19:07:00', 700, 120),
+(1, 'Math Midterm', 'Mathematics', '2025-02-25 17:32:00', 500, 90),
+(2, 'Physics Final', 'Physics', '2025-02-19 15:32:00', 700, 120),
 (3, 'Chemistry Quiz', 'Chemistry', '2025-02-25 10:00:00', 300, 60),
 (4, 'Biology Exam', 'Biology', '2025-02-12 20:30:00', 600, 45),
 (5, 'English Test', 'Literature', '2025-03-05 11:00:00', 400, 150),
 (6, 'History Quiz', 'Social Science', '2025-03-10 10:00:00', 450, 180),
-(7, 'Computer Science Exam', 'Computer Science', '2025-02-12 20:30:00', 800, 100),
+(7, 'Computer Science Exam', 'Computer Science', '2025-02-19 17:00:00', 800, 100),
 (8, 'Economics Test', 'Economics', '2025-02-12 02:40:00', 350, 110),
 (9, 'Philosophy Final', 'Social Science', '2025-03-25 13:00:00', 500, 75),
 (10, 'Statistics Exam', 'Mathematics', '2025-03-30 11:00:00', 600, 95),
-(11, 'Social Science', 'Social Science', '2025-02-11 22:55:00', 200, 60),
-(12, 'English Literature Quiz', 'Literature', '2025-02-12 14:40:00', 300, 60),
-(13, 'Mathematics Quiz', 'Mathematics', '2025-05-12 16:40:00', 600, 60);
+(11, 'Social Science', 'Social Science', '2025-02-19 16:45:00', 200, 60),
+(12, 'Literature Quiz', 'Literature', '2025-05-19 16:55:00', 300, 60),
+(13, 'Mathematics Quiz', 'Mathematics', '2025-02-19 16:55:00', 600, 60),
+(15, 'Economics Midsem', 'HSS', '2025-02-12 14:40:00', 300, 60);
 
 -- --------------------------------------------------------
 
@@ -138,7 +141,35 @@ INSERT INTO `exam_portal` (`exam_id`, `stud_id`, `ques_id`, `time_spent`) VALUES
 (7, 27, 52, '00:00:23'),
 (7, 27, 53, '00:00:04'),
 (7, 27, 54, '00:00:12'),
-(7, 27, 55, '00:00:30');
+(7, 27, 55, '00:00:30'),
+(7, 24, 15, '00:00:12'),
+(7, 24, 16, '00:00:19'),
+(7, 24, 51, '00:01:03'),
+(7, 24, 52, '00:00:46'),
+(7, 24, 53, '00:00:05'),
+(7, 24, 54, '00:01:15'),
+(7, 24, 55, '00:00:04'),
+(7, 25, 15, '00:00:10'),
+(7, 25, 16, '00:00:01'),
+(7, 25, 51, '00:00:05'),
+(7, 25, 52, '00:00:06'),
+(7, 25, 53, '00:00:07'),
+(7, 25, 54, '00:00:06'),
+(7, 25, 55, '00:00:24'),
+(7, 28, 15, '00:00:05'),
+(7, 28, 16, '00:00:40'),
+(7, 28, 51, '00:00:05'),
+(7, 28, 52, '00:00:11'),
+(7, 28, 53, '00:00:06'),
+(7, 28, 54, '00:00:03'),
+(7, 28, 55, '00:00:29'),
+(7, 29, 15, '00:00:23'),
+(7, 29, 16, '00:00:02'),
+(7, 29, 51, '00:00:03'),
+(7, 29, 52, '00:00:02'),
+(7, 29, 53, '00:00:02'),
+(7, 29, 54, '00:00:04'),
+(7, 29, 55, '00:00:04');
 
 -- --------------------------------------------------------
 
@@ -168,7 +199,9 @@ INSERT INTO `payments` (`payment_id`, `stud_id`, `exam_id`, `payment_date`, `fee
 (23, 22, 1, '2025-02-08 16:27:58', 500.00),
 (24, 22, 6, '2025-02-08 16:43:35', 450.00),
 (25, 22, 11, '2025-02-08 21:30:00', 200.00),
-(26, 27, 1, '2025-02-12 14:26:21', 500.00);
+(26, 27, 1, '2025-02-12 14:26:21', 500.00),
+(27, 25, 1, '2025-02-19 10:27:42', 500.00),
+(28, 29, 1, '2025-02-19 11:01:45', 500.00);
 
 -- --------------------------------------------------------
 
@@ -275,7 +308,9 @@ CREATE TABLE `reschedule_requests` (
 --
 
 INSERT INTO `reschedule_requests` (`request_id`, `stud_id`, `exam_id`, `new_slot`, `request_status`) VALUES
-(2, 22, 1, '2025-02-14 23:58:59', 'Approved');
+(2, 22, 1, '2025-02-14 23:58:59', 'Approved'),
+(3, 24, 2, '2025-02-19 15:32:00', 'Approved'),
+(4, 29, 1, '2025-02-25 17:32:00', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -294,7 +329,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('7VsD4BL9gxxitzPadF3yQpPZZwkQU68j', 1739458912, '{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-02-13T14:25:39.795Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"stud_id\":27,\"stud_name\":\"Lasya Madhu Sundar\"}');
+('N3DsKUyCJ1Nvn6e_a0Uc9PWGlj_ofm9a', 1740049569, '{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2025-02-20T10:54:21.424Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"stud_id\":29,\"stud_name\":\"Lakshmi. C\"}');
 
 -- --------------------------------------------------------
 
@@ -347,7 +382,35 @@ INSERT INTO `solved` (`solve_id`, `exam_id`, `given_ans`, `ans`, `stud_id`, `que
 (29, 7, 'Run Access Memory', 'Random Access Memory', 27, 52),
 (30, 7, '2', '2', 27, 53),
 (31, 7, 'Central Processing Unit', 'Central Processing Unit', 27, 54),
-(32, 7, 'A type of virus', 'System software', 27, 55);
+(32, 7, 'A type of virus', 'System software', 27, 55),
+(33, 7, 'HyperText Transmission Process', 'HyperText Transfer Protocol', 24, 15),
+(34, 7, '1001', '1010', 24, 16),
+(35, 7, 'A type of program', 'A step-by-step problem-solving process', 24, 51),
+(36, 7, 'Random Access Memory', 'Random Access Memory', 24, 52),
+(37, 7, '2', '2', 24, 53),
+(38, 7, 'Central Processing Unit', 'Central Processing Unit', 24, 54),
+(39, 7, 'A type of database', 'System software', 24, 55),
+(40, 7, 'HyperText Transfer Protocol', 'HyperText Transfer Protocol', 25, 15),
+(41, 7, NULL, '1010', 25, 16),
+(42, 7, 'A type of bug', 'A step-by-step problem-solving process', 25, 51),
+(43, 7, 'Rapid Access Memory', 'Random Access Memory', 25, 52),
+(44, 7, '2', '2', 25, 53),
+(45, 7, NULL, 'Central Processing Unit', 25, 54),
+(46, 7, NULL, 'System software', 25, 55),
+(47, 7, 'Hyper Transfer Protocol', 'HyperText Transfer Protocol', 28, 15),
+(48, 7, '1010', '1010', 28, 16),
+(49, 7, 'A step-by-step problem-solving process', 'A step-by-step problem-solving process', 28, 51),
+(50, 7, 'Random Access Memory', 'Random Access Memory', 28, 52),
+(51, 7, '10', '2', 28, 53),
+(52, 7, 'Central Performance Unit', 'Central Processing Unit', 28, 54),
+(53, 7, 'System software', 'System software', 28, 55),
+(54, 7, 'HyperText Transfer Protocol', 'HyperText Transfer Protocol', 29, 15),
+(55, 7, NULL, '1010', 29, 16),
+(56, 7, 'A type of program', 'A step-by-step problem-solving process', 29, 51),
+(57, 7, 'Random Access Memory', 'Random Access Memory', 29, 52),
+(58, 7, '2', '2', 29, 53),
+(59, 7, 'Central Processing Unit', 'Central Processing Unit', 29, 54),
+(60, 7, 'A type of virus', 'System software', 29, 55);
 
 -- --------------------------------------------------------
 
@@ -497,25 +560,25 @@ ALTER TABLE `user_registration`
 -- AUTO_INCREMENT for table `dashboard`
 --
 ALTER TABLE `dashboard`
-  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `reschedule_requests`
 --
 ALTER TABLE `reschedule_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `solved`
 --
 ALTER TABLE `solved`
-  MODIFY `solve_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `solve_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `students`

@@ -4,16 +4,16 @@ The Exam Portal is a fully-functional web-based examination system designed to s
 
 ## Features  
 
-- **Student Registration:** Secure signup and authentication.  
-- **Exam Registration:** Admins manage slots; students register.  
-- **Booking & Fees:** Online fee payment (no gateway yet).  
-- **Date Rescheduling:** Students request; admin's decision is final.  
+- **Student Registration:** Secure signup and authentication of Students and Admin.  
+- **Exam Registration:** Admins manage exam slots. Students can view and book exams after registration.  
+- **Booking & Fees:** Exam Booking System where booking is considered as fees payment (currently non-profit).
+- **Date Rescheduling:** Students can request for rescheduling of exam slots. Admin decides to approve or reject.  
 - **Secure Exam Start:** Photo/ID verification (in progress).  
-- **Quit & Disconnection Handling:** Resume exams after disconnection; next-day continuation (in progress).  
-- **Adaptive Questioning:** Dynamic difficulty based on performance (in progress).  
+- **Disconnection Handling:** Resume exams after disconnection (in progress).  
+- **Adaptive Questioning:** Dynamic difficulty of tests based on student performance (in progress).  
 - **Post-Exam Evaluation:** Instant answer evaluation and detailed reports.  
 - **Strengths & Weakness Dashboard:** Individual and overall performance insights.  
-- **Percentile Calculation:** Ranking based on overall performance.  
+- **Percentile Calculation:** Ranking and Percentile based on overall performance.  
 - **Time Tracking:** Tracks time per question for analysis.  
 - **Post-Exam Question Review:** Evaluates question effectiveness and difficulty.  
 - **Dashboard Updates:** Adjusts question difficulty based on trends (in progress).
