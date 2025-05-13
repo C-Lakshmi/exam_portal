@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+opencv-python
+mtcnn
+numpy
+tensorflow
+keras
+scikit-learn
+python-multipart

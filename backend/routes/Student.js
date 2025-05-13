@@ -3,6 +3,10 @@ const router = express.Router();
 const db = require("../config/db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const fs = require('fs');
+const path = require('path');
+const axios = require('axios');
+const FormData = require('form-data');
 
 // Wrapper function to handle async errors
 const asyncHandler = (fn) => (req, res, next) =>
@@ -145,6 +149,96 @@ router.get("/exams", async (req, res) => {
     }
   });
 
+
+router.post('/uploadPhoto', (req, res) => {
+  const { photo, exam_id } = req.body;
+  const stud_id = req.session.stud_id;
+
+  if (!photo || !exam_id || !stud_id) {
+    return res.status(400).json({ error: 'Missing photo, exam_id or student_id' });
+  }
+
+  const filename = `exam_${exam_id}_${Date.now()}.png`;
+  const fs = require('fs');
+  const path = require('path');
+
+const uploadDir = path.join(__dirname, '..', '..', 'uploads');
+
+// Check and create if not exists
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+  const filepath = path.join(uploadDir, filename);
+
+  const base64Data = photo.replace(/^data:image\/png;base64,/, '');
+
+  fs.writeFile(filepath, base64Data, 'base64', (err) => {
+    if (err) {
+      console.error("Error saving photo:", err);
+      return res.status(500).json({ error: 'Failed to save photo' });
+    }
+
+    // Insert into MySQL
+    const sql = `INSERT INTO student_photos (stud_id, exam_id, photo_filename) VALUES (?, ?, ?)`;
+    db.query(sql, [stud_id, exam_id, filename], (dbErr, result) => {
+      if (dbErr) {
+        console.error("Error inserting into DB:", dbErr);
+        return res.status(500).json({ error: 'Failed to save record in DB' });
+      }
+      console.log(result)
+      res.json({ success: true, message: 'Photo uploaded and recorded successfully', file: filename });
+    });
+  });
+});
+
+function getOldestPhotoPathFromDB(exam_id, student_id, callback) {
+  db.query(
+    `SELECT photo_filename FROM student_photos 
+     WHERE exam_id = ? AND stud_id = ? AND DATE(uploaded_at) = CURDATE()
+     ORDER BY uploaded_at ASC LIMIT 1`,
+    [exam_id, student_id],
+    (err, results) => {
+      if (err) return callback(err);
+      if (results.length === 0) return callback(new Error('No initial photo found for today in DB'));
+      const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
+      const fullPath = path.join(uploadsDir, results[0].photo_filename);
+      callback(null, fullPath);
+    }
+  );
+}
+
+router.post('/verifyPhoto', (req, res) => {
+  const { exam_id, photo } = req.body;
+  const student_id = req.session.stud_id;
+
+  getOldestPhotoPathFromDB(exam_id, student_id, (dbErr, initialPhotoPath) => {
+    if (dbErr) {
+      console.error("DB error:", dbErr.message);
+      return res.status(500).json({ error: dbErr.message });
+    }
+
+    const form = new FormData();
+    form.append('initial_photo', fs.createReadStream(initialPhotoPath));
+    form.append('periodic_photo', photo);
+
+    axios.post('http://127.0.0.1:8000/compareBase64', form, {
+      headers: form.getHeaders(),
+    }).then(response => {
+      res.json({
+        message: "Face verification done",
+        similarity: response.data.similarity,
+        verified: response.data.verified,
+        error: response.data.error
+      });
+    }).catch(err => {
+      console.error("Verification error:", err.message);
+      res.status(500).json({ error: err.message });
+    });
+  });
+});
+
+
   router.post("/fees", async (req, res) => {
     const { exam_id, fees } = req.body;
     const stud_id = req.session.stud_id; // Assuming stud_id is stored in the session
@@ -232,7 +326,7 @@ router.post("/reschedule", async (req, res) => {
 });
 
 router.use("/upcoming", async(req, res) => {
-    const query = `SELECT  exam_id, exam_name, slot, duration FROM exams 
+    const query = `SELECT  exam_id, exam_name, slot, duration, total_qs FROM exams 
     WHERE slot BETWEEN DATE_SUB(NOW(), INTERVAL 15 MINUTE) 
                AND DATE_ADD(NOW(), INTERVAL 1 DAY);`;
     
@@ -254,8 +348,9 @@ router.use("/upcoming", async(req, res) => {
 });
 
 router.use("/question", async (req, res) => {
-  const { exam_id } = req.body;
+  const { exam_id, difficulty } = req.body;
   const stud_id = req.session.stud_id;
+  console.log(exam_id,stud_id, difficulty);
 
   // Query to check if the student has solved questions for the given exam_id
   const checkQuery = `
@@ -266,9 +361,11 @@ router.use("/question", async (req, res) => {
 
   // Query to fetch questions if not already solved
   const questionQuery = `
-    SELECT ques_id, ques, opt1, opt2, opt3, opt4, ans, topic, difficulty 
-    FROM questions 
-    WHERE exam_id = ?;
+    SELECT q.ques_id, q.ques, q.opt1, q.opt2, q.opt3, q.opt4, q.ans, q.topic, q.difficulty
+    FROM questions q
+    JOIN exams e ON q.dept = e.dept
+    WHERE e.exam_id = ? AND q.difficulty = ?;
+
   `;
 
   try {
@@ -290,16 +387,18 @@ router.use("/question", async (req, res) => {
 
     // If not solved, fetch questions for the exam
     const questionsResults = await new Promise((resolve, reject) => {
-      db.query(questionQuery, [exam_id], (err, results) => {
+      db.query(questionQuery, [exam_id, difficulty], (err, results) => {
         if (err) {
           reject(err); // Pass the error to the catch block
         } else {
+          console.log(results)
           resolve(results); // Pass the results to the await call
         }
       });
     });
 
     // Return the questions data
+    //console.log(questionsResults);
     res.json(questionsResults);
   } catch (err) {
     console.error("Database error:", err);
