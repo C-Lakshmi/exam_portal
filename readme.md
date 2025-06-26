@@ -8,15 +8,14 @@ The Exam Portal is a fully-functional web-based examination system designed to s
 - **Exam Registration:** Admins manage exam slots. Students can view and book exams after registration.  
 - **Booking & Fees:** Exam Booking System where booking is considered as fees payment (currently non-profit).
 - **Date Rescheduling:** Students can request for rescheduling of exam slots. Admin decides to approve or reject.  
-- **Secure Exam Start:** Photo/ID verification (in progress).  
-- **Disconnection Handling:** Resume exams after disconnection (in progress).  
-- **Adaptive Questioning:** Dynamic difficulty of tests based on student performance (in progress).  
+- **Secure Exam Start:** Photo/ID verification.
+- **Online Exam Procturing:** Face verification every 5 minutes using Keras Facenet. 
+- **Adaptive Questioning:** Dynamic difficulty of tests based on student performance.  
 - **Post-Exam Evaluation:** Instant answer evaluation and detailed reports.  
 - **Strengths & Weakness Dashboard:** Individual and overall performance insights.  
 - **Percentile Calculation:** Ranking and Percentile based on overall performance.  
 - **Time Tracking:** Tracks time per question for analysis.  
 - **Post-Exam Question Review:** Evaluates question effectiveness and difficulty.  
-- **Dashboard Updates:** Adjusts question difficulty based on trends (in progress).
 
 
 ## Tech Stacks
@@ -99,7 +98,7 @@ mysql -u root -p exam_db < path/to/db_setup.sql
 ```bash
 ├───db_setup.sql
 ├───readme.md
-│
+│───model/
 ├───backend
 │   │   package-lock.json
 │   │   package.json
